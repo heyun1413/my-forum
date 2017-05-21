@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 import com.ron.forum.dao.UserDao;
 import com.ron.forum.domain.Level;
 import com.ron.forum.domain.User;
-import com.ron.forum.dto.UserDTO;
-import com.ron.forum.dto.UserLoginDTO;
-import com.ron.forum.dto.UserRegisterDTO;
+import com.ron.forum.dto.UserInfo;
+import com.ron.forum.dto.LoginInfo;
+import com.ron.forum.dto.RegisterInfo;
 import com.ron.forum.service.EmailService;
 import com.ron.forum.service.UserService;
 /**
@@ -33,12 +33,12 @@ public class UserServiceImpl implements UserService {
 	private EmailService emailService;
 	
 	@Override
-	public UserDTO login(UserLoginDTO userLoginDTO) {
+	public UserInfo login(LoginInfo userLoginDTO) {
 		if (userLoginDTO == null)
 			throw new NullPointerException();
 		User user = userDao.findByUsername(userLoginDTO.getUsername());
 		if (user != null && user.getPassword().equals(userLoginDTO.getPassword())) {
-			UserDTO userVO = new UserDTO();
+			UserInfo userVO = new UserInfo();
 			userVO.setNickname(user.getNickname());
 			userVO.setGender(user.getGender().name());
 			userVO.setIntegral(Level.levelOf(user.getIntegral()).name());
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean register(UserRegisterDTO userRegisterDTO) {
+	public boolean register(RegisterInfo userRegisterDTO) {
 		Objects.requireNonNull(userRegisterDTO);
 		if (notExistedUser(userRegisterDTO.getUsername())) {
 			emailService.createEmail(userRegisterDTO.getEmail());

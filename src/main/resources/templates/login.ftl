@@ -4,8 +4,7 @@
   <head>
     <meta charset="utf-8">
     <title>论坛登录</title>
-    <!-- 新 Bootstrap 核心 CSS 文件 -->
-	<link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
  	<style>
  		.loginform {
  			width: 500px;
@@ -22,9 +21,9 @@
     <div class="container">
 		<div class="loginform table-bordered">
 		    <form id="loginform" class="bs-example bs-example-form" role="form">
-		    	<input type="text" class="form-control" placeholder="输入用户名" v-model="UserLoginDTO.username">
+		    	<input type="text" class="form-control" placeholder="输入用户名" v-model="loginInfo.username">
 		        <br>
-		        <input type="text" class="form-control" placeholder="输入密码" v-model="UserLoginDTO.password">
+		        <input type="text" class="form-control" placeholder="输入密码" v-model="loginInfo.password">
 		        <br>
 		        <input type="text" class="form-control" placeholder="输入下面的验证码" v-model="verifyCode">
 		        <br />
@@ -38,33 +37,36 @@
 		</div>
 	</div>
 
-	<!-- 可选的Bootstrap主题文件（一般不使用） -->
-	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>
 	    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 	 
 	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
 	<script>
-		var commitParam = {
-			userLoginDTO : {
-					username : '',
-					password : ''
-			},
-			verifyCode : ''
-		};
+		Vue.http.options.emulateJSON = true;
 		new Vue({
 			el : '#loginform',
-			data : commitParam,
+			data : {
+				loginInfo : {
+					username : '',
+					password : ''
+				},
+				verifyCode : ''
+			},
 			methods : {
 				confirm : function() {
-					alert("hello");
-					this.$http.post('/user/login',commitParam).then((response) => {
-                		alert(response);
-            		}, (error) => {
-                		// error callback
+					var that = this;
+					alert(JSON.stringify(this.loginInfo));
+					this.$http.post('/confirm-code', {'verifyCode' : this.verifyCode}).then((response) => {
+                		if (response == 200) {
+                			this.$http.post('/user/login',JSON.stringify(that.loginInfo)).then((response) => {
+                				alert(response);
+            				});
+                		} else {
+                			alert('验证码输入错误');
+                		}
             		});
 				}
 			}

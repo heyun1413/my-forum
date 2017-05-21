@@ -34,7 +34,7 @@ public class Demo1Application {
 	DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/myforum?useUnicode=true&characterEncoding=utf8&useSSL=false");
+		dataSource.setUrl("jdbc:mysql://he:3306/myforum?useUnicode=true&characterEncoding=utf8&useSSL=false");
 		dataSource.setUsername("root");
 		dataSource.setPassword("ily");
 		dataSource.setMinIdle(10);

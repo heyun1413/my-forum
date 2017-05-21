@@ -1,8 +1,8 @@
 package com.ron.forum.service;
 
-import com.ron.forum.dto.UserLoginDTO;
-import com.ron.forum.dto.UserRegisterDTO;
-import com.ron.forum.dto.UserDTO;
+import com.ron.forum.dto.LoginInfo;
+import com.ron.forum.dto.RegisterInfo;
+import com.ron.forum.dto.UserInfo;
 
 /**
  * 
@@ -12,9 +12,9 @@ import com.ron.forum.dto.UserDTO;
  */
 public interface UserService {
 
-	UserDTO login(UserLoginDTO userLoginDTO);
+	UserInfo login(LoginInfo userLoginInfo);
 	
-	boolean register(UserRegisterDTO userRegisterDTO);
+	boolean register(RegisterInfo userRegisterDTO);
 	
 	boolean notExistedUser(String username);
 }

@@ -2,11 +2,13 @@ package com.ron.forum.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ron.forum.dto.UserLoginDTO;
-import com.ron.forum.dto.UserDTO;
+import com.ron.forum.dto.UserInfo;
+import com.ron.forum.dto.LoginInfo;
 import com.ron.forum.service.UserService;
 
 @Controller
@@ -20,12 +22,11 @@ public class UserController {
 	String toLogin() {
 		return "login";
 	}
-	@RequestMapping("/login")
-	String login(UserLoginDTO loginDTO, Model model) {
-		UserDTO userVO = userService.login(loginDTO);
-		if (userVO == null) {
-			return "login";
-		}
-		return "index";
+	
+	@PostMapping("/login")
+	@ResponseBody
+	int login(@RequestBody LoginInfo loginInfo) {
+		UserInfo userInfo = userService.login(loginInfo);
+		return userInfo == null ? 0 : 200;
 	}
 }
