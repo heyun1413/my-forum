@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ron.forum.dao.UserDao">
+    <!-- 定义缓存  一般是一级缓存，如果用同一个sqlsession 那么相同查询直接会从缓存中查找 
+    <cache size="1024" flushInterval="60000" eviction="LRU" readOnly="false"></cache>
+    -->
+    <!-- 查找所有 -->
+    <resultMap id="User" type="com.ron.forum.domain.User">
+    	<id property="id" column="user_id"/>
+    	<result property="username" column="username"/>
+    	<result property="password" column="password"/>
+    	<result property="nickname" column="nickname"/>
+    	<result property="gender" column="gender" typeHandler="com.ron.forum.typehandler.GenderTypeHandler"/>
+    	<result property="portraitPath" column="portrait_path"/>
+    	<result property="integral" column="integral"/>
+    </resultMap>
+    <select id="findUserByUsername" parameterType="java.lang.String" resultMap="User">
+    	select 
+    		user_id, username, password, nickname, gender, portrait_path, integral
+    	from 
+    		t_user
+    	where 
+    		username = #{username}
+    </select>
+    <insert id="saveUser" parameterType="com.ron.forum.domain.User" >
+    	insert into
+    		t_user(username, password, nickname, gender, portrait_path, integral)
+    	values 
+    		(#{username}, #{password}, #{nickname}, #{gender}, #{portrait_path}, #{integral})
+    </insert>
+        
+
+</mapper>
