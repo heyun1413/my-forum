@@ -13,8 +13,8 @@ import org.springframework.jms.core.JmsTemplate;
 public class ActiveMQConfiguration {
 
 	
-	ConnectionFactory activeMQConnectionFactory() {
-		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("admin", "admin", "tcp://localhost:61616");
+	private ConnectionFactory activeMQConnectionFactory() {
+		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("admin", "admin", "tcp://he:61616");
 		return connectionFactory;
 	}
 	

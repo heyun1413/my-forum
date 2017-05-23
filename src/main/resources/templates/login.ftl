@@ -21,9 +21,9 @@
     <div class="container">
 		<div class="loginform table-bordered">
 		    <form id="loginform" class="bs-example bs-example-form" role="form">
-		    	<input type="text" class="form-control" placeholder="输入用户名" v-model="loginInfo.username">
+		    	<input type="text" class="form-control" placeholder="输入用户名" onkeyup="this.value=this.value.replace(/[^\w_]/g,'');" v-model="loginInfo.username">
 		        <br>
-		        <input type="text" class="form-control" placeholder="输入密码" v-model="loginInfo.password">
+		        <input type="password" class="form-control" placeholder="输入密码" v-model="loginInfo.password">
 		        <br>
 		        <input type="text" class="form-control" placeholder="输入下面的验证码" v-model="verifyCode">
 		        <br />
@@ -38,7 +38,7 @@
 	</div>
 
 	    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 	 
 	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -61,7 +61,7 @@
 					alert(JSON.stringify(this.loginInfo));
 					this.$http.post('/confirm-code', {'verifyCode' : this.verifyCode}).then((response) => {
                 		if (response == 200) {
-                			this.$http.post('/user/login',JSON.stringify(that.loginInfo)).then((response) => {
+                			this.$http.jsonp('/user/login',JSON.stringify(that.loginInfo)).then((response) => {
                 				alert(response);
             				});
                 		} else {

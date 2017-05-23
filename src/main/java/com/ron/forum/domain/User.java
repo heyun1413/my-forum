@@ -1,5 +1,7 @@
 package com.ron.forum.domain;
 
+import com.ron.forum.enums.Gender;
+
 public class User {
 
 	private Integer id;

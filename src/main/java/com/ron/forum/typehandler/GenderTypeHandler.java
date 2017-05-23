@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 
-import com.ron.forum.domain.Gender;
+import com.ron.forum.enums.Gender;
 
 public class GenderTypeHandler extends BaseTypeHandler<Gender>{
 

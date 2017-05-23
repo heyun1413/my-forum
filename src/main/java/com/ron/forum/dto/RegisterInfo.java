@@ -32,5 +32,4 @@ public class RegisterInfo {
 		this.email = email;
 	}
 	
-	
 }

@@ -9,9 +9,9 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
 import com.ron.forum.dao.UserDao;
-import com.ron.forum.domain.Level;
 import com.ron.forum.domain.User;
 import com.ron.forum.dto.UserInfo;
+import com.ron.forum.enums.Level;
 import com.ron.forum.dto.LoginInfo;
 import com.ron.forum.dto.RegisterInfo;
 import com.ron.forum.service.EmailService;
